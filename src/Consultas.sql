@@ -1,4 +1,3 @@
-
 CREATE TABLE IF NOT EXISTS tema(
 	tem_nombre varchar,
 	tem_cod int NOT NULL,

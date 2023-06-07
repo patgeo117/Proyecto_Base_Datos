@@ -1,21 +1,33 @@
-
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.Connection;
 import java.sql.DriverManager;
-
+import java.sql.Statement;
+// Se importan las clases para trabajar con archivos, base de datos y consultas SQL
 public class Principal {
-    public static void consultas(){
-
-    }
     public static void main(String[] args) {
         new Interfaz1();
-        String user = "George117";
-        String password = "Pinina117";
-        try{
-            DriverManager.getConnection("jdbc:postgresql://localhost:5432/FundacionProNiñez", user, password);
-            System.out.println("conectado con exito");
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-        consultas();
 
+        String archivoSQL = "src/Consultas.sql"; // se toma la ruta de las consultas
+        String user = "George117"; // datos para el login
+        String password = "Pinina117";
+        String url = "jdbc:postgresql://localhost:5432/FundacionProNiñez"; // URL para conectar a la base de datos
+
+        try (Connection conexion = DriverManager.getConnection(url, user, password); // se establece la conexion con la base de datos con el driver JDBC
+             Statement declaracion = conexion.createStatement()) { // Se crea un objeto Statement para ejecutar consultas SQL
+
+            String contenidoSQL = new String(Files.readAllBytes(Paths.get(archivoSQL))); // se lee el contenido del archivo SQL y se almacena utilizando File y Paths
+            String[] consultas = contenidoSQL.split(";"); // se dividen las consultas utilizando como separador ";"
+
+            for (String consulta : consultas) { // se recorre cada consulta
+                declaracion.addBatch(consulta); // se agrega a la lista que estan por consultarse
+            }
+            declaracion.executeBatch(); // se ejecutan todas las consultas
+
+            System.out.println("Consultas ejecutadas correctamente.");
+            System.out.println("Base de datos Conectada...");
+        } catch (Exception e) {
+            e.printStackTrace(); // Sí hay alguna excepcion se muesta en consola
+        }
     }
 }
