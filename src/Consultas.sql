@@ -77,9 +77,7 @@ CREATE TABLE IF NOT EXISTS evaluacion(
 	eva_fecha date,
 	eva_cod int NOT NULL,
 	PRIMARY KEY (eva_cod)
-
 );
-
 
 CREATE TABLE IF NOT EXISTS objetivo(
 	obj_fechaFinal date,

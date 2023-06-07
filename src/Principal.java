@@ -4,14 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 // Se importan las clases para trabajar con archivos, base de datos y consultas SQL
-public class Principal {
+public class Principal extends Credenciales {
     public static void main(String[] args) {
         new Interfaz1();
-
-        String archivoSQL = "src/Consultas.sql"; // se toma la ruta de las consultas
-        String user = "George117"; // datos para el login
-        String password = "Pinina117";
-        String url = "jdbc:postgresql://localhost:5432/FundacionProNiñez"; // URL para conectar a la base de datos
 
         try (Connection conexion = DriverManager.getConnection(url, user, password); // se establece la conexion con la base de datos con el driver JDBC
              Statement declaracion = conexion.createStatement()) { // Se crea un objeto Statement para ejecutar consultas SQL
