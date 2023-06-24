@@ -1,8 +1,10 @@
+
+src/Credenciales.java
+
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-!**/src/Credenciales/**/out/
 
 ### Eclipse ###
 .apt_generated
