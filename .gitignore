@@ -2,7 +2,7 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-src/Credenciales.java
+!**/src/Credenciales/**/out/
 
 ### Eclipse ###
 .apt_generated
