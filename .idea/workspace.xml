@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03051851-7ba1-4b61-b2db-3eb4bff97167" name="Changes" comment="Base Inicial">
-      <change beforePath="$PROJECT_DIR$/src/Credenciales.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Credenciales.java" afterDir="false" />
-    </list>
+    <list default="true" id="03051851-7ba1-4b61-b2db-3eb4bff97167" name="Changes" comment="Base Inicial 1.1" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -93,7 +91,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687645105118</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Base Inicial 1.1">
+      <created>1687645456042</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1687645456042</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -112,7 +117,8 @@
     <MESSAGE value="Consultas y conexión a base de datos" />
     <MESSAGE value="credenciales" />
     <MESSAGE value="Base Inicial" />
-    <option name="LAST_COMMIT_MESSAGE" value="Base Inicial" />
+    <MESSAGE value="Base Inicial 1.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Base Inicial 1.1" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
