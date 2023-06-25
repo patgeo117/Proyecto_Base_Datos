@@ -82,6 +82,35 @@ public class MetodosConsultas {
     public String[] getColumnasProyecto() {
         return new String[]{"Título", "Descripción", "Alcance","Presupuesto","Codigo del tema", "Codigo Profecional"};
     }
+    public String[] getColumnasAdministrativo() {
+        return new String[]{"ID", "Area", "Codigo Profesional","Codigo Empleado"};
+    }
+    public String[] getColumnasComunidades() {
+        return new String[]{"Codigo", "Nombre", "Etnia","Cantidad Niños","Id Representante", "ID Profecional"};
+    }
+    public String[] getColumnasDRepresentante() {
+        return new String[]{"Correo", "Direción", "Telefono","ID Representante","ID Datos"};
+    }
+    public String[] getColumnasEmpleados() {
+        return new String[]{"Nombre", "Salario", "ID"};
+    }
+    public String[] getColumnasNiños() {
+        return new String[]{"Nombre", "Edad", "Fecha Nacimiento","ID","Codigo Comunidad"};
+    }
+    public String[] getColumnasObjetivo() {
+        return new String[]{"Fecha Final", "Fecha Inicio", "Descripción","Codigo","Codigo del Proyecto", "Codigo Evaluación"};
+    }
+    public String[] getColumnasParticipacion() {
+        return new String[]{"Tarea", "Tiempo", "Codigo del Proyecto", "Codigo"};
+    }
+
+    public String[] getColumnasProfecionales() {
+        return new String[]{"Especialización", "ID", "Codigo del Proyecto", "Codigo Empleado"};
+    }
+
+    public String[] getColumnasTema() {
+        return new String[]{"Nombre del Tema", "Codigo"};
+    }
 
     public String[] getColumnasRepresentante() {
         return new String[]{"Nombre", "Fecha Nacimiento", "Edad","ID"};
