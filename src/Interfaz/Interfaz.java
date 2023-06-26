@@ -40,12 +40,7 @@ public class Interfaz extends JFrame implements ActionListener {
     // TextField
 
     // Crear un modelo de la tabla
-    DefaultTableModel model = new DefaultTableModel(){
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
+    DefaultTableModel model = new DefaultTableModel();
 
     // Tabla
     JTable table;
@@ -54,13 +49,13 @@ public class Interfaz extends JFrame implements ActionListener {
     MetodosConsultas Metodoconsultas = new MetodosConsultas();
     Consultas consultas = new Consultas();
 
-    public Interfaz(){
+    public Interfaz() {
         // Configuración Panel
         panel = new JPanel();
-        panel.setBounds(40, 120, 620, 350);
+        panel.setBounds(30, 125, 620, 350);
         panel.setBackground(Color.cyan);
         add(panel);
-        
+
         // Botones
         responsable = new JButton("Responsable");
         responsable.setBounds(100, 60, 100, 40);
@@ -160,157 +155,76 @@ public class Interfaz extends JFrame implements ActionListener {
         panel.add(new JScrollPane(table));
 
     }
-    public void setTable(){
+
+    public void setTable() {
         model.setRowCount(0);
         model.setColumnCount(0);
     }
+
+    // Se crea un método que va a recibir una consulta y agrega los datos al modelo de la tabla
+    public void agragarDataModel(String data) {
+        for (String columna : Metodoconsultas.getColmnas(data)) { // recorro los datos obtenidos en la consulta
+            model.addColumn(columna); // agregos los datos al model
+        }
+
+        for (Object[] fila : Metodoconsultas.ejecutarConsulta(data)) {
+            model.addRow(fila);
+        }
+    }
+
     ActionListener Action2 = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             // Se crea un jmenuitem al cual se le asigna el jmenuitem presionado
             JMenuItem jm = (JMenuItem) e.getSource();
-            if(jm == I_proyectos){
+            if (jm == I_proyectos) {
                 setTable();
-
-                for (String columna : Metodoconsultas.getColumnasProyecto()){
-                    model.addColumn(columna);
-                }
-
-                for (Object[] fila : Metodoconsultas.ejecutarConsulta(consultas.C_proyectos)) {
-                    model.addRow(fila);
-                }
+                agragarDataModel(consultas.C_proyectos);
+            }
+            if (jm == I_comunidades) {
+                setTable();
+                agragarDataModel(consultas.C_comunidades);
+            }
+            if (jm == I_Empleados) {
+                setTable();
+                agragarDataModel(consultas.C_empleados);
+            }
+            if (jm == I_administrativos) {
+                setTable();
+                agragarDataModel(consultas.C_administrativos);
+            }
+            if (jm == I_profecionales) {
+                setTable();
+                agragarDataModel(consultas.C_profecionales);
+            }
+            if (jm == I_Representate) {
+                setTable();
+                agragarDataModel(consultas.C_representante);
+            }
+            if (jm == I_D_contacto_Representante) {
+                setTable();
+                agragarDataModel(consultas.C_Drepresentante);
+            }
+            if (jm == I_objetivos) {
+                setTable();
+                agragarDataModel(consultas.C_objetivos);
 
             }
-            if(jm == I_comunidades){
+            if (jm == I_Tema) {
                 setTable();
-
-                for (String columna : Metodoconsultas.getColumnasComunidades()){
-                    model.addColumn(columna);
-                }
-
-                for (Object[] fila : Metodoconsultas.ejecutarConsulta(consultas.C_comunidades)) {
-                    model.addRow(fila);
-                }
-
+                agragarDataModel(consultas.C_tema);
             }
-            if(jm == I_Empleados){
+            if (jm == I_Evaluacion) {
                 setTable();
-
-                for (String columna : Metodoconsultas.getColumnasEmpleados()){
-                    model.addColumn(columna);
-                }
-
-                for (Object[] fila : Metodoconsultas.ejecutarConsulta(consultas.C_empleados)) {
-                    model.addRow(fila);
-                }
-
+                agragarDataModel(consultas.C_evaluacion);
             }
-            if(jm == I_administrativos){
+            if (jm == I_niños) {
                 setTable();
-
-                for (String columna : Metodoconsultas.getColumnasAdministrativo()){
-                    model.addColumn(columna);
-                }
-
-                for (Object[] fila : Metodoconsultas.ejecutarConsulta(consultas.C_administrativos)) {
-                    model.addRow(fila);
-                }
-
+                agragarDataModel(consultas.C_niños);
             }
-            if(jm == I_profecionales){
+            if (jm == I_participacion) {
                 setTable();
-
-                for (String columna : Metodoconsultas.getColumnasProfecionales()){
-                    model.addColumn(columna);
-                }
-
-                for (Object[] fila : Metodoconsultas.ejecutarConsulta(consultas.C_profecionales)) {
-                    model.addRow(fila);
-                }
-
-            }
-            if(jm == I_Representate){
-                setTable();
-
-                for (String columna : Metodoconsultas.getColumnasRepresentante()){
-                    model.addColumn(columna);
-                }
-
-                for (Object[] fila : Metodoconsultas.ejecutarConsulta(consultas.C_respresentante)) {
-                    model.addRow(fila);
-                }
-
-            }
-            if(jm == I_D_contacto_Representante){
-                setTable();
-
-                for (String columna : Metodoconsultas.getColumnasDRepresentante()){
-                    model.addColumn(columna);
-                }
-
-                for (Object[] fila : Metodoconsultas.ejecutarConsulta(consultas.C_Drepresentante)) {
-                    model.addRow(fila);
-                }
-
-            }
-            if(jm == I_objetivos){
-                setTable();
-
-                for (String columna : Metodoconsultas.getColumnasObjetivo()){
-                    model.addColumn(columna);
-                }
-
-                for (Object[] fila : Metodoconsultas.ejecutarConsulta(consultas.C_objetivos)) {
-                    model.addRow(fila);
-                }
-
-            }
-            if(jm == I_Tema){
-                setTable();
-
-                for (String columna : Metodoconsultas.getColumnasTema()){
-                    model.addColumn(columna);
-                }
-
-                for (Object[] fila : Metodoconsultas.ejecutarConsulta(consultas.C_tema)) {
-                    model.addRow(fila);
-                }
-
-            }
-            if(jm == I_Evaluacion){
-                setTable();
-
-                for (String columna : Metodoconsultas.getColumnasEvaluacion()){
-                    model.addColumn(columna);
-                }
-
-                for (Object[] fila : Metodoconsultas.ejecutarConsulta(consultas.C_evaluacion)) {
-                    model.addRow(fila);
-                }
-
-            }
-            if(jm == I_niños){
-                setTable();
-
-                for (String columna : Metodoconsultas.getColumnasNiños()){
-                    model.addColumn(columna);
-                }
-
-                for (Object[] fila : Metodoconsultas.ejecutarConsulta(consultas.C_niños)) {
-                    model.addRow(fila);
-                }
-
-            }
-            if(jm == I_participacion){
-                setTable();
-
-                for (String columna : Metodoconsultas.getColumnasParticipacion()){
-                    model.addColumn(columna);
-                }
-
-                for (Object[] fila : Metodoconsultas.ejecutarConsulta(consultas.C_participantes)) {
-                    model.addRow(fila);
-                }
+                agragarDataModel(consultas.C_participacion);
             }
         }
     };
@@ -319,14 +233,14 @@ public class Interfaz extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton jb = (JButton) e.getSource();
-        if(jb == proyectos){
+        if (jb == proyectos) {
 
         }
 
-        if(jb == responsable){
+        if (jb == responsable) {
 
         }
-        if(jb == evaluacion){
+        if (jb == evaluacion) {
 
         }
     }

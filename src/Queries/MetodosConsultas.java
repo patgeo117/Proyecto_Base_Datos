@@ -7,14 +7,14 @@ import java.util.List;
 import static Credentials.Credenciales.*;
 
 public class MetodosConsultas {
+    Connection connection = null;
+    Statement statement = null;
+    ResultSet resultSet = null;
+    Object[][] resultado = null;
+    ResultSetMetaData metaData = null;
 
     // Esctrura para la tabla
     public Object[][] ejecutarConsulta(String consulta) {
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet resultSet = null;
-        Object[][] resultado = null;
-
         try {
             // Establecer la conexión con la base de datos
             connection = DriverManager.getConnection(url, user, password);
@@ -26,7 +26,7 @@ public class MetodosConsultas {
             resultSet = statement.executeQuery(consulta);
 
             // Obtener el número de columnas en los resultados
-            ResultSetMetaData metaData = resultSet.getMetaData();
+            metaData = resultSet.getMetaData();
             int columnCount = metaData.getColumnCount();
 
             // Almacenar los resultados en una lista de listas
@@ -78,45 +78,29 @@ public class MetodosConsultas {
         return resultado;
     }
 
-    // Columnas
-    public String[] getColumnasProyecto() {
-        return new String[]{"Título", "Descripción", "Alcance","Presupuesto","Codigo del tema", "Codigo Profecional"};
-    }
-    public String[] getColumnasAdministrativo() {
-        return new String[]{"ID", "Area", "Codigo Profesional","Codigo Empleado"};
-    }
-    public String[] getColumnasComunidades() {
-        return new String[]{"Codigo", "Nombre", "Etnia","Cantidad Niños","Id Representante", "ID Profecional"};
-    }
-    public String[] getColumnasDRepresentante() {
-        return new String[]{"Correo", "Direción", "Telefono","ID Representante","ID Datos"};
-    }
-    public String[] getColumnasEmpleados() {
-        return new String[]{"Nombre", "Salario", "ID"};
-    }
-    public String[] getColumnasNiños() {
-        return new String[]{"Nombre", "Edad", "Fecha Nacimiento","ID","Codigo Comunidad"};
-    }
-    public String[] getColumnasObjetivo() {
-        return new String[]{"Fecha Final", "Fecha Inicio", "Descripción","Codigo","Codigo del Proyecto", "Codigo Evaluación"};
-    }
-    public String[] getColumnasParticipacion() {
-        return new String[]{"Tarea", "Tiempo", "Codigo del Proyecto", "Codigo"};
-    }
+    public ArrayList<String> getColmnas(String consulta) {
+        ArrayList<String> columnas = new ArrayList<>();
+        // Establecer la conexión con la base de datos
+        try {
+            connection = DriverManager.getConnection(url, user, password);
+            // Crear una sentencia para ejecutar la consulta
+            statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-    public String[] getColumnasProfecionales() {
-        return new String[]{"Especialización", "ID", "Codigo del Proyecto", "Codigo Empleado"};
-    }
+            // Ejecutar la consulta y obtener el conjunto de resultados
+            resultSet = statement.executeQuery(consulta);
 
-    public String[] getColumnasTema() {
-        return new String[]{"Nombre del Tema", "Codigo"};
-    }
+            // Obtener el número de columnas en los resultados
+            metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
 
-    public String[] getColumnasRepresentante() {
-        return new String[]{"Nombre", "Fecha Nacimiento", "Edad","ID"};
-    }
+            //Obtenemos los datos de las columnas
+            for (int i = 1; i <= columnCount; i++) {
+                columnas.add(metaData.getColumnName(i));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-    public String[] getColumnasEvaluacion() {
-        return new String[]{"Porcentaje", "Fecha Evaluación", "Codigo"};
+        return columnas;
     }
 }
