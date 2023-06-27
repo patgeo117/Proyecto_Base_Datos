@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class Interfaz extends JFrame implements ActionListener {
 
@@ -125,7 +126,7 @@ public class Interfaz extends JFrame implements ActionListener {
         this.setJMenuBar(menuBar);
 
         // Jcombox
-        String[] labelComboBox = {"Prouyectos de la comunidad", "Representante"};
+        String[] labelComboBox = {"Seleccionar", "Prouyectos de la comunidad", "Representante"};
         consultar = new JComboBox(labelComboBox);
         consultar.setEditable(false);
         consultar.setSelectedIndex(0); // seleccionar item de manera predeterminada
@@ -164,8 +165,12 @@ public class Interfaz extends JFrame implements ActionListener {
     }
 
     public void ObtenerSeleccion() {
+        String valorPrederminado = (String) consultar.getSelectedItem();
         int item = consultar.getSelectedIndex();
-        if (item == 0) {
+        if (Objects.equals(valorPrederminado, "Seleccionar")) {
+            consultar.setSelectedIndex(-1); // Deseleccionar el ítem "Ignorar"
+        }
+        if (item == 1) {
             int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
             int cod = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
             setTable(); // limpio los datos de la tabla
