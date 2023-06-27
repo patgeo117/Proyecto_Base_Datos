@@ -13,4 +13,12 @@ public class Consultas {
     public String C_evaluacion = "SELECT * FROM evaluacion";
     public String C_niños = "SELECT * FROM niños";
     public String C_participacion = "SELECT * FROM participacion";
+
+    public String proyectoDeComunidades(int getProyectoDeComunidad) {
+        String proyectoDeComunidad = "Select p.* FROM proyectos  p\n" +
+                "INNER JOIN comunidades c \n" +
+                "on p.pro_cod = c.fk_pro_cod\n" +
+                "AND c.fk_pro_cod = " + getProyectoDeComunidad;
+        return proyectoDeComunidad;
+    }
 }

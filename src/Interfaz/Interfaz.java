@@ -11,12 +11,12 @@ import java.awt.event.ActionListener;
 public class Interfaz extends JFrame implements ActionListener {
 
     // Botones
-    JButton proyectos;
-    JButton responsable;
+    JButton obtenerConsulta;
     JButton evaluacion;
 
     // ComboBox
-    JComboBox responDirectivos;
+    JComboBox consultar;
+
     // Panel
     JPanel panel;
 
@@ -37,13 +37,9 @@ public class Interfaz extends JFrame implements ActionListener {
     JMenuItem I_Representate;
     JMenuItem I_Tema;
 
-    // TextField
-
     // Crear un modelo de la tabla
     DefaultTableModel model = new DefaultTableModel();
-
-    // Tabla
-    JTable table;
+    JTable table; // Tabla
 
     // Llamo a la clase que tiene los metodos
     MetodosConsultas Metodoconsultas = new MetodosConsultas();
@@ -57,23 +53,17 @@ public class Interfaz extends JFrame implements ActionListener {
         add(panel);
 
         // Botones
-        responsable = new JButton("Responsable");
-        responsable.setBounds(100, 60, 100, 40);
-        responsable.setBackground(Color.RED);
-        responsable.addActionListener(this);
-        add(responsable);
-
-        evaluacion = new JButton("Evaluación");
-        evaluacion.setBounds(240, 60, 100, 40);
+      /*  evaluacion = new JButton("Evaluación");
+        evaluacion.setBounds(380, 60, 100, 40);
         evaluacion.setBackground(Color.RED);
         evaluacion.addActionListener(this);
-        add(evaluacion);
+        add(evaluacion);*/
 
-        proyectos = new JButton("Proyectos");
-        proyectos.setBounds(380, 60, 100, 40);
-        proyectos.setBackground(Color.RED);
-        proyectos.addActionListener(this);
-        add(proyectos);
+        obtenerConsulta = new JButton("Obtener consulta");
+        obtenerConsulta.setBounds(240, 60, 100, 40);
+        obtenerConsulta.setBackground(Color.RED);
+        obtenerConsulta.addActionListener(this);
+        add(obtenerConsulta);
 
         // Configuración Jmenubar
         menuBar = new JMenuBar();
@@ -134,10 +124,13 @@ public class Interfaz extends JFrame implements ActionListener {
 
         this.setJMenuBar(menuBar);
 
-
         // Jcombox
-        responDirectivos = new JComboBox();
-        //responDirectivos.setBounds(,60,);
+        String[] labelComboBox = {"Prouyectos de la comunidad", "Representante"};
+        consultar = new JComboBox(labelComboBox);
+        consultar.setEditable(false);
+        consultar.setSelectedIndex(0); // seleccionar item de manera predeterminada
+        consultar.setBounds(40, 60, 180, 40);
+        add(consultar);
 
         // Configuración Ventana
         setLayout(null);
@@ -153,7 +146,6 @@ public class Interfaz extends JFrame implements ActionListener {
         table.setPreferredScrollableViewportSize(new Dimension(600, 300));
         // se añade al panel y además se le agrega el método JScroll para que se visualice de forma correcta
         panel.add(new JScrollPane(table));
-
     }
 
     public void setTable() {
@@ -166,9 +158,19 @@ public class Interfaz extends JFrame implements ActionListener {
         for (String columna : Metodoconsultas.getColmnas(data)) { // recorro los datos obtenidos en la consulta
             model.addColumn(columna); // agregos los datos al model
         }
-
         for (Object[] fila : Metodoconsultas.ejecutarConsulta(data)) {
             model.addRow(fila);
+        }
+    }
+
+    public void ObtenerSeleccion() {
+        int item = consultar.getSelectedIndex();
+        if (item == 0) {
+            int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
+            int cod = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
+            setTable(); // limpio los datos de la tabla
+            // agrego los datos a la tabla llamndo al método que va a realizar la consulta
+            agragarDataModel(consultas.proyectoDeComunidades(cod));
         }
     }
 
@@ -229,19 +231,11 @@ public class Interfaz extends JFrame implements ActionListener {
         }
     };
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton jb = (JButton) e.getSource();
-        if (jb == proyectos) {
-
-        }
-
-        if (jb == responsable) {
-
-        }
-        if (jb == evaluacion) {
-
+        if (jb == obtenerConsulta) {
+            ObtenerSeleccion();
         }
     }
 }
