@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03051851-7ba1-4b61-b2db-3eb4bff97167" name="Changes" comment="primera consulta">
+    <list default="true" id="03051851-7ba1-4b61-b2db-3eb4bff97167" name="Changes" comment="MODEL">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Interfaz/Interfaz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interfaz/Interfaz.java" afterDir="false" />
     </list>
@@ -22,7 +22,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="MIXED" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectId" id="2QUsjBbHOYN9rrxLttIxdqMD0UE" />
@@ -156,23 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687659747477</updated>
     </task>
-    <task id="LOCAL-00012" summary="Depuración">
-      <option name="closed" value="true" />
-      <created>1687807384657</created>
+    <task id="LOCAL-00012" summary="MODEL">
+      <created>1687660800323</created>
       <option name="number" value="00012" />
       <option name="presentableId" value="LOCAL-00012" />
       <option name="project" value="LOCAL" />
-      <updated>1687807384657</updated>
+      <updated>1687660800323</updated>
     </task>
-    <task id="LOCAL-00013" summary="primera consulta">
-      <option name="closed" value="true" />
-      <created>1687830224066</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1687830224066</updated>
-    </task>
-    <option name="localTasksCounter" value="14" />
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -196,15 +186,11 @@
     <MESSAGE value="Base Inicial 1.3" />
     <MESSAGE value="Ignore" />
     <MESSAGE value="Querry" />
-    <MESSAGE value="Depuración" />
-    <MESSAGE value="primera consulta" />
-    <option name="LAST_COMMIT_MESSAGE" value="primera consulta" />
+    <MESSAGE value="MODEL" />
+    <option name="LAST_COMMIT_MESSAGE" value="MODEL" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/program$Principal.ic" NAME="Principal Coverage Results" MODIFIED="1687660282983" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

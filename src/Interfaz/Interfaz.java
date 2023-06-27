@@ -126,7 +126,7 @@ public class Interfaz extends JFrame implements ActionListener {
         this.setJMenuBar(menuBar);
 
         // Jcombox
-        String[] labelComboBox = {"Seleccionar", "Prouyectos de la comunidad", "Representante"};
+        String[] labelComboBox = {"Seleccionar", "Proyectos de la comunidad", "Representante"};
         consultar = new JComboBox(labelComboBox);
         consultar.setEditable(false);
         consultar.setSelectedIndex(0); // seleccionar item de manera predeterminada
@@ -174,7 +174,7 @@ public class Interfaz extends JFrame implements ActionListener {
             int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
             int cod = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
             setTable(); // limpio los datos de la tabla
-            // agrego los datos a la tabla llamndo al método que va a realizar la consulta
+            // agrego los datos a la tabla llamando al método que va a realizar la consulta
             agragarDataModel(consultas.proyectoDeComunidades(cod));
         }
     }
