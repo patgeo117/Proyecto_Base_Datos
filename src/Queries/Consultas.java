@@ -40,4 +40,40 @@ public class Consultas {
                 "and a.fk_pro_cod = " + getproyectosDeDirectivo;
         return proyectosDeDirectivos;
     }
+
+    public String evaluacionProyecto(int getevaluacion){
+        String evaluacion = "SELECT P.* \n" +
+                "FROM proyectos P INNER JOIN objetivo O ON ( P.pro_cod = O.fk_pro_cod ) \n" +
+                "INNER JOIN evaluacion E ON (E.eva_cod = O.fk_eva_cod and E.eva_porcentaje < " + getevaluacion + ")";
+        return evaluacion;
+    }
+
+    public String ObjetivoEvaluacionProyecto(int getcodProyecto){
+        String objetivoEvaluacion = "SELECT O.* , E.eva_porcentaje \n" +
+                "FROM objetivo O INNER JOIN evaluacion E ON (E.eva_cod = O.fk_eva_cod ) \n" +
+                "INNER JOIN proyectos P ON ( P.pro_cod = O.fk_pro_cod AND P.pro_cod = " + getcodProyecto + ")";
+        return objetivoEvaluacion;
+    }
+
+    public String niñoComunidad(int getcodComunidad){
+        String niños = "SELECT N.* \n" +
+                "FROM niños N INNER JOIN comunidades C \n" +
+                "ON (N.fk_com_cod = C.com_cod AND C.com_cod = " + getcodComunidad + ")";
+        return niños;
+    }
+
+    public String profecionalProyecto(int getcodProyecto){
+        String profecional = "SELECT PR.* \n" +
+                "FROM profecionales PR INNER JOIN participacion P ON ( PR.prof_id = P.fk_prof_id)  \n" +
+                "INNER JOIN proyectos pro ON (pro.pro_cod = P.fk_pro_cod AND pro.pro_cod = " + getcodProyecto + ")";
+        return profecional;
+    }
+
+    public String profecionalEspecializacion(String getEspecializacion){
+        String profecionalEs = "SELECT PR.* \n" +
+                "FROM profecionales PR   \n" +
+                "WHERE PR.prof_especializacion = '" + getEspecializacion + "'";
+        return profecionalEs;
+    }
+
 }

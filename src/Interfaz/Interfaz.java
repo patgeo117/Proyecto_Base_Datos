@@ -126,7 +126,8 @@ public class Interfaz extends JFrame implements ActionListener {
         this.setJMenuBar(menuBar);
 
         // Jcombox
-        String[] labelComboBox = {"Seleccionar", "Proyectos de la comunidad", "Representante", "Responsable proyectos"};
+        String[] labelComboBox = {"Seleccionar", "Proyectos de la comunidad", "Representante", "Responsable proyectos", "Evaluación Proyecto," ,
+                "Objetivos y Evaluación", "Niños Comunidad", "Profecional Proyecto", "Profecional Especialización"};
         consultar = new JComboBox(labelComboBox);
         consultar.setEditable(false);
         consultar.setSelectedIndex(0); // seleccionar item de manera predeterminada
@@ -169,9 +170,10 @@ public class Interfaz extends JFrame implements ActionListener {
         int item = consultar.getSelectedIndex();
         String columname = table.getColumnName(0);
 
-        if (Objects.equals(valorPrederminado, "Seleccionar")) {
+        if (Objects.equals(valorPrederminado, "Seleccionar")){
             consultar.setSelectedIndex(-1); // Deseleccionar el ítem "Ignorar"
         }
+            
         if (item == 1) {
             if(Objects.equals(columname, "com_cod")) {
                 int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
@@ -196,7 +198,45 @@ public class Interfaz extends JFrame implements ActionListener {
                 // agrego los datos a la tabla llamando al método que va a realizar la consulta
                 agragarDataModel(consultas.respoProyectosDirectivos(cod));
             }
+        } else if (item == 4) {
+            int eva = Integer.parseInt(JOptionPane.showInputDialog("Digite el porcentaje que desea evaluar (80)"));
+            setTable(); // limpio los datos de la tabla
+            agragarDataModel(consultas.evaluacionProyecto(eva));
+        } else if (item == 5) {
+            if(Objects.equals(columname, "pro_titulo")) {
+                int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
+                int cod = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
+                setTable(); // limpio los datos de la tabla
+                // agrego los datos a la tabla llamando al método que va a realizar la consulta
+                agragarDataModel(consultas.ObjetivoEvaluacionProyecto(cod));
+            }
+        }else if (item == 6) {
+            if (Objects.equals(columname, "com_cod")) {
+                int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
+                int cod = (int) model.getValueAt(indexRow, 0); // obtengo el valor de la celda deseada
+                setTable(); // limpio los datos de la tabla
+                // agrego los datos a la tabla llamando al método que va a realizar la consulta
+                agragarDataModel(consultas.niñoComunidad(cod));
+            }
+        }else if (item == 7) {
+            if (Objects.equals(columname, "pro_titulo")) {
+                int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
+                int cod = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
+                setTable(); // limpio los datos de la tabla
+                // agrego los datos a la tabla llamando al método que va a realizar la consulta
+                agragarDataModel(consultas.profecionalProyecto(cod));
+            }
+        }else if (item == 8) {
+            if (Objects.equals(columname, "prof_especializacion")) {
+                int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
+                String especializacion = (String) model.getValueAt(indexRow, 0); // obtengo el valor de la celda deseada
+                setTable(); // limpio los datos de la tabla
+                // agrego los datos a la tabla llamando al método que va a realizar la consulta
+                agragarDataModel(consultas.profecionalEspecializacion(especializacion));
+            }
         }
+
+
     }
 
     ActionListener Action2 = new ActionListener() {

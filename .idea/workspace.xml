@@ -4,18 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="03051851-7ba1-4b61-b2db-3eb4bff97167" name="Changes" comment="1ras 3 consultas">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_7_01_p__m___Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_7_01_p_ m__[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_06_2023_9_24_p__m___Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_06_2023_9_24_p_ m__[Changes]/shelved.patch" afterDir="false" />
+    <list default="true" id="03051851-7ba1-4b61-b2db-3eb4bff97167" name="Changes" comment="Corrección">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_7_01_p__m___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_10_07_2023_7_01_p__m___Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_06_2023_9_24_p__m___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_06_2023_9_24_p__m___Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Interfaz/Interfaz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interfaz/Interfaz.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Principal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Queries/Consultas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Queries/Consultas.java" afterDir="false" />
-    </list>
-    <list id="a4f44c23-9b4a-4a80-871e-074746d73a60" name="Changes by gpati" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Interfaz/Interfaz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Interfaz/Interfaz.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,18 +25,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/Interfaz/Interfaz.java">
-      <ranges>
-        <range start1="63" end1="64" start2="63" end2="64" changelist="03051851-7ba1-4b61-b2db-3eb4bff97167" />
-        <range start1="128" end1="129" start2="128" end2="129" changelist="03051851-7ba1-4b61-b2db-3eb4bff97167" />
-        <range start1="132" end1="133" start2="132" end2="133" changelist="03051851-7ba1-4b61-b2db-3eb4bff97167" />
-        <range start1="169" end1="169" start2="169" end2="171" changelist="a4f44c23-9b4a-4a80-871e-074746d73a60" />
-        <range start1="173" end1="178" start2="175" end2="198" changelist="03051851-7ba1-4b61-b2db-3eb4bff97167" />
-      </ranges>
-    </file>
   </component>
   <component name="ProjectId" id="2QUsjBbHOYN9rrxLttIxdqMD0UE" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -189,15 +171,7 @@
       <option name="project" value="LOCAL" />
       <updated>1687833532629</updated>
     </task>
-    <task id="LOCAL-00014" summary="primera consulta">
-      <option name="closed" value="true" />
-      <created>1687830891476</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1687830891476</updated>
-    </task>
-    <option name="localTasksCounter" value="15" />
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -223,14 +197,10 @@
     <MESSAGE value="Querry" />
     <MESSAGE value="MODEL" />
     <MESSAGE value="Corrección" />
-    <MESSAGE value="1ras 3 consultas" />
-    <option name="LAST_COMMIT_MESSAGE" value="1ras 3 consultas" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrección" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/program$Principal.ic" NAME="Principal Coverage Results" MODIFIED="1687660282983" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
