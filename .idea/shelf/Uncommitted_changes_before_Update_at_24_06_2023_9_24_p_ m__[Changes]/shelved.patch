@@ -1,0 +1,20 @@
+Index: src/Interfaz1.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import javax.swing.*;\r\n\r\npublic class Interfaz1 {\r\n    private JPanel VentanaPrincipal;\r\n    private JList list1;\r\n    private JList list2;\r\n    private JButton consultarButton;\r\n    private JButton insertarButton;\r\n}\r\n
+===================================================================
+diff --git a/src/Interfaz1.java b/src/Interfaz1.java
+--- a/src/Interfaz1.java	
++++ b/src/Interfaz1.java	
+@@ -6,4 +6,11 @@
+     private JList list2;
+     private JButton consultarButton;
+     private JButton insertarButton;
++
++    public Interfaz1(){
++        JFrame jFrame = new JFrame();
++        jFrame.add(VentanaPrincipal);
++        jFrame.setVisible(true);
++        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
++    }
+ }

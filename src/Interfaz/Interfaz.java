@@ -61,7 +61,7 @@ public class Interfaz extends JFrame implements ActionListener {
         add(evaluacion);*/
 
         obtenerConsulta = new JButton("Obtener consulta");
-        obtenerConsulta.setBounds(240, 60, 100, 40);
+        obtenerConsulta.setBounds(245, 60, 100, 40);
         obtenerConsulta.setBackground(Color.RED);
         obtenerConsulta.addActionListener(this);
         add(obtenerConsulta);
@@ -126,11 +126,11 @@ public class Interfaz extends JFrame implements ActionListener {
         this.setJMenuBar(menuBar);
 
         // Jcombox
-        String[] labelComboBox = {"Seleccionar", "Proyectos de la comunidad", "Representante"};
+        String[] labelComboBox = {"Seleccionar", "Proyectos de la comunidad", "Representante", "Responsable proyectos"};
         consultar = new JComboBox(labelComboBox);
         consultar.setEditable(false);
         consultar.setSelectedIndex(0); // seleccionar item de manera predeterminada
-        consultar.setBounds(40, 60, 180, 40);
+        consultar.setBounds(40, 60, 200, 40);
         add(consultar);
 
         // Configuración Ventana
@@ -171,11 +171,29 @@ public class Interfaz extends JFrame implements ActionListener {
             consultar.setSelectedIndex(-1); // Deseleccionar el ítem "Ignorar"
         }
         if (item == 1) {
-            int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
-            int cod = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
-            setTable(); // limpio los datos de la tabla
-            // agrego los datos a la tabla llamando al método que va a realizar la consulta
-            agragarDataModel(consultas.proyectoDeComunidades(cod));
+            if(Objects.equals(columname, "com_cod")) {
+                int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
+                int cod = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
+                setTable(); // limpio los datos de la tabla
+                // agrego los datos a la tabla llamando al método que va a realizar la consulta
+                agragarDataModel(consultas.proyectoDeComunidades(cod));
+            }
+        }else if(item == 2) {
+            if(Objects.equals(columname, "pro_titulo")) {
+                int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
+                int cod = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
+                setTable(); // limpio los datos de la tabla
+                // agrego los datos a la tabla llamando al método que va a realizar la consulta
+                agragarDataModel(consultas.responsableProyecto0(cod));
+            }
+        }else if(item == 3){
+            if(Objects.equals(columname, "adm_id")) {
+                int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
+                int cod = (int) model.getValueAt(indexRow, 2); // obtengo el valor de la celda deseada
+                setTable(); // limpio los datos de la tabla
+                // agrego los datos a la tabla llamando al método que va a realizar la consulta
+                agragarDataModel(consultas.respoProyectosDirectivos(cod));
+            }
         }
     }
 
