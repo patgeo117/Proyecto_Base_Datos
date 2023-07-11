@@ -167,6 +167,8 @@ public class Interfaz extends JFrame implements ActionListener {
     public void ObtenerSeleccion() {
         String valorPrederminado = (String) consultar.getSelectedItem();
         int item = consultar.getSelectedIndex();
+        String columname = table.getColumnName(0);
+
         if (Objects.equals(valorPrederminado, "Seleccionar")) {
             consultar.setSelectedIndex(-1); // Deseleccionar el ítem "Ignorar"
         }
