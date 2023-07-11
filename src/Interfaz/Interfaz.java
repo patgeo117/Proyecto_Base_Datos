@@ -13,10 +13,11 @@ public class Interfaz extends JFrame implements ActionListener {
 
     // Botones
     JButton obtenerConsulta;
-    JButton evaluacion;
-
+    JButton Actualizar;
+    JButton agregarFila;
+    JButton guardarFila;
     // ComboBox
-    JComboBox consultar;
+    JComboBox<String> consultar;
 
     // Panel
     JPanel panel;
@@ -54,14 +55,15 @@ public class Interfaz extends JFrame implements ActionListener {
         add(panel);
 
         // Botones
-      /*  evaluacion = new JButton("Evaluación");
-        evaluacion.setBounds(380, 60, 100, 40);
-        evaluacion.setBackground(Color.RED);
-        evaluacion.addActionListener(this);
-        add(evaluacion);*/
+        Actualizar = new JButton("Actualizar");
+        Actualizar.setBounds(410, 60, 100, 40);
+        Actualizar.setBackground(Color.green);
+        Actualizar.setVisible(false);
+        Actualizar.addActionListener(this);
+        add(Actualizar);
 
         obtenerConsulta = new JButton("Obtener consulta");
-        obtenerConsulta.setBounds(245, 60, 100, 40);
+        obtenerConsulta.setBounds(245, 60, 150, 40);
         obtenerConsulta.setBackground(Color.RED);
         obtenerConsulta.addActionListener(this);
         add(obtenerConsulta);
@@ -127,8 +129,8 @@ public class Interfaz extends JFrame implements ActionListener {
 
         // Jcombox
         String[] labelComboBox = {"Seleccionar", "Proyectos de la comunidad", "Representante", "Responsable proyectos", "Evaluación Proyecto," ,
-                "Objetivos y Evaluación", "Niños Comunidad", "Profecional Proyecto", "Profecional Especialización"};
-        consultar = new JComboBox(labelComboBox);
+                "Objetivos y Evaluación", "Niños Comunidad", "Profecional Proyecto", "Profecional Especialización", "Proyecto Fecha"};
+        consultar = new JComboBox<>(labelComboBox);
         consultar.setEditable(false);
         consultar.setSelectedIndex(0); // seleccionar item de manera predeterminada
         consultar.setBounds(40, 60, 200, 40);
@@ -168,14 +170,15 @@ public class Interfaz extends JFrame implements ActionListener {
     public void ObtenerSeleccion() {
         String valorPrederminado = (String) consultar.getSelectedItem();
         int item = consultar.getSelectedIndex();
-        String columname = table.getColumnName(0);
 
         if (Objects.equals(valorPrederminado, "Seleccionar")){
             consultar.setSelectedIndex(-1); // Deseleccionar el ítem "Ignorar"
         }
             
         if (item == 1) {
-            if(Objects.equals(columname, "com_cod")) {
+            if(Objects.equals(table.getName(), "comunidades")) {
+                System.out.println(table.getName());
+                consultar.setSelectedIndex(1);
                 int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
                 int cod = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
                 setTable(); // limpio los datos de la tabla
@@ -183,7 +186,7 @@ public class Interfaz extends JFrame implements ActionListener {
                 agragarDataModel(consultas.proyectoDeComunidades(cod));
             }
         }else if(item == 2) {
-            if(Objects.equals(columname, "pro_titulo")) {
+            if(Objects.equals(table.getName(), "proyectos")) {
                 int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
                 int cod = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
                 setTable(); // limpio los datos de la tabla
@@ -191,7 +194,7 @@ public class Interfaz extends JFrame implements ActionListener {
                 agragarDataModel(consultas.responsableProyecto0(cod));
             }
         }else if(item == 3){
-            if(Objects.equals(columname, "adm_id")) {
+            if(Objects.equals(table.getName(), "administrativos")) {
                 int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
                 int cod = (int) model.getValueAt(indexRow, 2); // obtengo el valor de la celda deseada
                 setTable(); // limpio los datos de la tabla
@@ -199,11 +202,14 @@ public class Interfaz extends JFrame implements ActionListener {
                 agragarDataModel(consultas.respoProyectosDirectivos(cod));
             }
         } else if (item == 4) {
-            int eva = Integer.parseInt(JOptionPane.showInputDialog("Digite el porcentaje que desea evaluar (80)"));
-            setTable(); // limpio los datos de la tabla
-            agragarDataModel(consultas.evaluacionProyecto(eva));
+            if(Objects.equals(table.getName(),"evaluacion")) {
+                int eva = Integer.parseInt(JOptionPane.showInputDialog("Digite el porcentaje que desea evaluar (80)"));
+                setTable(); // limpio los datos de la tabla
+                agragarDataModel(consultas.evaluacionProyecto(eva));
+            }
+
         } else if (item == 5) {
-            if(Objects.equals(columname, "pro_titulo")) {
+            if(Objects.equals(table.getName(), "proyectos")) {
                 int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
                 int cod = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
                 setTable(); // limpio los datos de la tabla
@@ -211,7 +217,7 @@ public class Interfaz extends JFrame implements ActionListener {
                 agragarDataModel(consultas.ObjetivoEvaluacionProyecto(cod));
             }
         }else if (item == 6) {
-            if (Objects.equals(columname, "com_cod")) {
+            if (Objects.equals(table.getName(), "comunidades")) {
                 int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
                 int cod = (int) model.getValueAt(indexRow, 0); // obtengo el valor de la celda deseada
                 setTable(); // limpio los datos de la tabla
@@ -219,7 +225,7 @@ public class Interfaz extends JFrame implements ActionListener {
                 agragarDataModel(consultas.niñoComunidad(cod));
             }
         }else if (item == 7) {
-            if (Objects.equals(columname, "pro_titulo")) {
+            if (Objects.equals(table.getName(), "proyectos")) {
                 int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
                 int cod = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
                 setTable(); // limpio los datos de la tabla
@@ -227,16 +233,56 @@ public class Interfaz extends JFrame implements ActionListener {
                 agragarDataModel(consultas.profecionalProyecto(cod));
             }
         }else if (item == 8) {
-            if (Objects.equals(columname, "prof_especializacion")) {
+            if (Objects.equals(table.getName(), "profecionales")) {
                 int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
                 String especializacion = (String) model.getValueAt(indexRow, 0); // obtengo el valor de la celda deseada
                 setTable(); // limpio los datos de la tabla
                 // agrego los datos a la tabla llamando al método que va a realizar la consulta
                 agragarDataModel(consultas.profecionalEspecializacion(especializacion));
             }
+        }else if (item == 9) {
+            if (Objects.equals(table.getName(), "proyectos")) {
+                String fechainicio = JOptionPane.showInputDialog("Digite la fecha inicial (2023-06-02)");
+                String fechafinal = JOptionPane.showInputDialog("Digite la fecha Final (2023-10-31)");
+                setTable(); // limpio los datos de la tabla
+                // agrego los datos a la tabla llamando al método que va a realizar la consulta
+                agragarDataModel(consultas.rangoFechaProyecto(fechainicio,fechafinal));
+            }
         }
+    }
 
+    public void ActualizarTablas (){
+        if(Objects.equals(table.getName(), "proyectos")) {
+            int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
+            String descripcion = (String) model.getValueAt(indexRow, 1); // obtengo el valor de la celda deseada
+            String alcance = (String) model.getValueAt(indexRow, 2); // obtengo el valor de la celda deseada
+            int presupuesto = (int) model.getValueAt(indexRow, 3); // obtengo el valor de la celda deseada
+            int cod_pro = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
 
+            agragarDataModel(consultas.ActualizarTablaPro(descripcion,alcance,presupuesto,cod_pro));
+
+        }
+        if(Objects.equals(table.getName(), "empleados")){
+            int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
+
+            int salario = Integer.parseInt((String) model.getValueAt(indexRow, 1)); // obtengo el valor de la celda deseada
+            int cod_emp = (int) model.getValueAt(indexRow, 2); // obtengo el valor de la celda deseada
+
+            agragarDataModel(consultas.ActualizarTablaEmp(salario,cod_emp));
+        }
+    }
+
+    public void insertardatosPosgrest(){
+        int lastFila = table.getSelectedRow(); // obtengo la última fila de la tabla
+        String tableName = encabezadoTable.getName();
+
+        StringBuilder rowData = new StringBuilder(); // guardar los dataos
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            rowData.append((String) table.getValueAt(lastFila, i));
+        }
+        System.out.println(rowData);
+
+        consultas.insertenTabla(tableName, rowData);
     }
 
     ActionListener Action2 = new ActionListener() {
@@ -244,33 +290,43 @@ public class Interfaz extends JFrame implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             // Se crea un jmenuitem al cual se le asigna el jmenuitem presionado
             JMenuItem jm = (JMenuItem) e.getSource();
+
+            Actualizar.setVisible(false);
             if (jm == I_proyectos) {
                 setTable();
+                Actualizar.setVisible(true);
                 agragarDataModel(consultas.C_proyectos);
+                table.setName("proyectos");
             }
             if (jm == I_comunidades) {
                 setTable();
                 agragarDataModel(consultas.C_comunidades);
+                table.setName("comunidades");
             }
             if (jm == I_Empleados) {
                 setTable();
+                Actualizar.setVisible(true);
                 agragarDataModel(consultas.C_empleados);
             }
             if (jm == I_administrativos) {
                 setTable();
                 agragarDataModel(consultas.C_administrativos);
+                table.setName("administrativos");
             }
             if (jm == I_profecionales) {
                 setTable();
                 agragarDataModel(consultas.C_profecionales);
+                table.setName("profecionales");
             }
             if (jm == I_Representate) {
                 setTable();
                 agragarDataModel(consultas.C_representante);
+                table.setName("representante");
             }
             if (jm == I_D_contacto_Representante) {
                 setTable();
                 agragarDataModel(consultas.C_Drepresentante);
+                table.setName("dcontacto_representante");
             }
             if (jm == I_objetivos) {
                 setTable();
@@ -280,18 +336,22 @@ public class Interfaz extends JFrame implements ActionListener {
             if (jm == I_Tema) {
                 setTable();
                 agragarDataModel(consultas.C_tema);
+                table.setName("tema");
             }
             if (jm == I_Evaluacion) {
                 setTable();
                 agragarDataModel(consultas.C_evaluacion);
+                table.setName("evaluacion");
             }
             if (jm == I_niños) {
                 setTable();
                 agragarDataModel(consultas.C_niños);
+                table.setName("niños");
             }
             if (jm == I_participacion) {
                 setTable();
                 agragarDataModel(consultas.C_participacion);
+                table.setName("participacion");
             }
         }
     };
@@ -301,6 +361,15 @@ public class Interfaz extends JFrame implements ActionListener {
         JButton jb = (JButton) e.getSource();
         if (jb == obtenerConsulta) {
             ObtenerSeleccion();
+        }
+        if(jb == Actualizar){
+            ActualizarTablas();
+        }
+        if(jb == agregarFila){
+            model.addRow(new Object[]{""});
+        }
+        if (jb == guardarFila) {
+            insertardatosPosgrest();
         }
     }
 }
