@@ -70,10 +70,37 @@ public class Consultas {
     }
 
     public String profecionalEspecializacion(String getEspecializacion){
-        String profecionalEs = "SELECT PR.* \n" +
+        String profecionales = "SELECT PR.* \n" +
                 "FROM profecionales PR   \n" +
                 "WHERE PR.prof_especializacion = '" + getEspecializacion + "'";
-        return profecionalEs;
+        return profecionales;
     }
+    public String insertenTabla(String tabla, StringBuilder getatributos){
+        String consuInsert = "INSERT INTO " +tabla+ " VALUES " + getatributos;
+        return consuInsert;
+    }
+
+    public String ActualizarTablaPro(String descripcion, String alcance, int presupuesto, int codpro){
+        String actualizar = "UPDATE proyectos \n"+
+                "SET pro_descripcion = '"+descripcion+"', pro_alcance = '"+alcance+"', pro_presupuesto = " + presupuesto + "\n" +
+                "WHERE pro_cod = "+ codpro;
+        return actualizar;
+    }
+
+    public String ActualizarTablaEmp(int salario, int codEmp){
+        String actualizar = "UPDATE empleados \n"+
+                "SET emp_salario = "+ salario + "\n" +
+                "WHERE emp_id = "+ codEmp;
+        return actualizar;
+    }
+    public String rangoFechaProyecto(String fechainicial, String fechafinal){
+        String fechaProyecto = "SELECT P.* \n"+
+                "FROM proyectos P INNER JOIN objetivo O \n" +
+                "ON (P.pro_cod = O.fk_pro_cod AND ( obj_fechainicio >= '" + fechainicial + "'\n" +
+                "AND  obj_fechafinal <= '" + fechafinal + "'))";
+        return fechaProyecto;
+    }
+
+
 
 }

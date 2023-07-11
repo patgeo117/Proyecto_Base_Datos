@@ -4,6 +4,7 @@ import Queries.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,8 +41,9 @@ public class Interfaz extends JFrame implements ActionListener {
     JMenuItem I_Tema;
 
     // Crear un modelo de la tabla
-    DefaultTableModel model = new DefaultTableModel();
-    JTable table; // Tabla
+    JTable table = new JTable(); // Tabla
+    JTableHeader encabezadoTable = new JTableHeader(); // para asignarle un nombre a las tablas cabecera del jtable
+    DefaultTableModel model = (DefaultTableModel) table.getModel();
 
     // Llamo a la clase que tiene los metodos
     MetodosConsultas Metodoconsultas = new MetodosConsultas();
@@ -67,6 +69,18 @@ public class Interfaz extends JFrame implements ActionListener {
         obtenerConsulta.setBackground(Color.RED);
         obtenerConsulta.addActionListener(this);
         add(obtenerConsulta);
+
+        agregarFila = new JButton("Agragar fila");
+        agregarFila.setBounds(60, 490, 150, 40);
+        agregarFila.setBackground(Color.RED);
+        agregarFila.addActionListener(this);
+        add(agregarFila);
+
+        guardarFila = new JButton("Guardar Fila");
+        guardarFila.setBounds(200, 490,150,40);
+        guardarFila.setBackground(Color.RED);
+        guardarFila.addActionListener(this);
+        add(guardarFila);
 
         // Configuración Jmenubar
         menuBar = new JMenuBar();
@@ -146,7 +160,6 @@ public class Interfaz extends JFrame implements ActionListener {
         setVisible(true);
 
         // Se le dan las dimensiones
-        table = new JTable(model);
         table.setPreferredScrollableViewportSize(new Dimension(600, 300));
         // se añade al panel y además se le agrega el método JScroll para que se visualice de forma correcta
         panel.add(new JScrollPane(table));
@@ -307,6 +320,7 @@ public class Interfaz extends JFrame implements ActionListener {
                 setTable();
                 Actualizar.setVisible(true);
                 agragarDataModel(consultas.C_empleados);
+                table.setName("empleados");
             }
             if (jm == I_administrativos) {
                 setTable();
@@ -331,7 +345,7 @@ public class Interfaz extends JFrame implements ActionListener {
             if (jm == I_objetivos) {
                 setTable();
                 agragarDataModel(consultas.C_objetivos);
-
+                table.setName("objetivo");
             }
             if (jm == I_Tema) {
                 setTable();
