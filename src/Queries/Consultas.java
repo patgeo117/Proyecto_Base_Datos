@@ -1,7 +1,5 @@
 package Queries;
 
-import java.sql.PreparedStatement;
-
 public class Consultas {
     public String C_proyectos = "SELECT * FROM proyectos";
     public String C_comunidades = "SELECT * FROM comunidades";
@@ -98,6 +96,27 @@ public class Consultas {
                 "AND  '" + fechafinal + "'))";
         return fechaProyecto;
     }
+
+    public String EdadPromedio(String genero){
+        String promedio = "SELECT N.niños_genero, AVG(N.niños_edad) AS Promedio_Edad \n"+
+                "FROM niños N\n WHERE N.niños_genero = '"+genero+"'\n" +
+                "GROUP BY N.niños_genero";
+        return promedio;
+    }
+    public String edadPromdioProyectos(){
+        String promedioEdadProyectos ="SELECT AVG(n.niños_edad) AS Promedio_edad, p.pro_titulo FROM niños n \n" +
+                "INNER JOIN comunidades c ON n.fk_com_cod = c.com_cod \n" +
+                "INNER JOIN proyectos p ON p.pro_cod = c.fk_pro_cod\n" +
+                "GROUP BY p.pro_titulo";
+        return promedioEdadProyectos;
+    }
+    public String edadPromedioComunidad(){
+        String promedioEdadComunidad = "SELECT AVG(n.niños_edad) AS Promedio_edad, c.com_nombre FROM niños n \n" +
+                "INNER JOIN comunidades c ON n.fk_com_cod = c.com_cod \n" +
+                "GROUP BY c.com_nombre";
+        return promedioEdadComunidad;
+    }
+
     public String insertenTabla(String nametabla, String[] rowData) {
         StringBuilder consultaInsert = new StringBuilder(); // cadena string mutable
         consultaInsert.append("INSERT INTO ").append(nametabla).append(" VALUES (");
@@ -106,7 +125,7 @@ public class Consultas {
         for (int i = 0; i < rowData.length; i++) {
             // agrego los datos a consultinsert dentro de commilas simples VALUES ('','','',...)
             consultaInsert.append("'").append(rowData[i]).append("'");
-            // condicional para agregar comas entra cada valor menss el ultimo valor
+            // condicional para agregar comas entra cada valor menss el último valor
             if (i < rowData.length - 1) {
                 consultaInsert.append(", ");
             }

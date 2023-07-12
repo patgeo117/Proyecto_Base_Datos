@@ -19,8 +19,6 @@ public class Interfaz extends JFrame implements ActionListener {
     JButton guardarFila;
     // ComboBox
     JComboBox<String> consultar;
-    DefaultComboBoxModel<String> modelComboBox = new DefaultComboBoxModel<String>();
-
     // Panel
     JPanel panel;
 
@@ -146,7 +144,9 @@ public class Interfaz extends JFrame implements ActionListener {
         String[] labelComboBox = {"Seleccionar", "Proyectos de la comunidad   (comunidades)", "Representante   (proyectos)",
                 "Responsable proyectos   (administrativos)", "Evaluación Proyecto   (evaluación)" ,
                 "Objetivos y Evaluación    (proyectos)", "Niños Comunidad   (comunidades)",
-                "Profecional Proyecto   (proyectos)", "Profecional Especialización   (profesionales)", "Proyecto Fecha   (proyectos)"};
+                "Profecional Proyecto   (proyectos)", "Profecional Especialización   (profesionales)", "Proyecto Fecha   (proyectos)",
+                "Promedio Edad por Genero (Niños)", "Promedio Edad por Proyectos (Niños)", "Promedio Edad por Comunidad (Niños)"
+        };
         consultar = new JComboBox<>(labelComboBox);
         consultar.setEditable(false);
         consultar.setSelectedIndex(0); // seleccionar item de manera predeterminada
@@ -267,7 +267,29 @@ public class Interfaz extends JFrame implements ActionListener {
                 // agrego los datos a la tabla llamando al método que va a realizar la consulta
                 agragarDataModel(consultas.rangoFechaProyecto(fechainicio,fechafinal));
             }
+        }else if (item == 10) {
+            if (Objects.equals(encabezadoTable.getName(), "niños")) {
+                int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
+                String genero = (String) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
+
+                setTable(); // limpio los datos de la tabla
+                // agrego los datos a la tabla llamando al método que va a realizar la consulta
+                agragarDataModel(consultas.EdadPromedio(genero));
+            }
+        } else if (item == 11) {
+            if(Objects.equals(encabezadoTable.getName(),"niños")){
+                setTable(); // limpio los datos de la tabla
+                // agrego los datos a la tabla llamando al método que va a realizar la consulta
+                agragarDataModel(consultas.edadPromdioProyectos());
+            }
+        } else if (item == 12) {
+            if(Objects.equals(encabezadoTable.getName(),"niños")){
+                setTable(); // limpio los datos de la tabla
+                // agrego los datos a la tabla llamando al método que va a realizar la consulta
+                agragarDataModel(consultas.edadPromedioComunidad());
+            }
         }
+
     }
 
     public void ActualizarTablas (){
