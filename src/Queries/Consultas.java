@@ -1,5 +1,7 @@
 package Queries;
 
+import java.sql.PreparedStatement;
+
 public class Consultas {
     public String C_proyectos = "SELECT * FROM proyectos";
     public String C_comunidades = "SELECT * FROM comunidades";
@@ -40,7 +42,7 @@ public class Consultas {
                 "and a.fk_pro_cod = " + getproyectosDeDirectivo;
         return proyectosDeDirectivos;
     }
-
+    //  Listar los proyectos que hayan obtenido una evaluación inferior a cierto valor ingresado por el usuario
     public String evaluacionProyecto(int getevaluacion){
         String evaluacion = "SELECT P.* \n" +
                 "FROM proyectos P INNER JOIN objetivo O ON ( P.pro_cod = O.fk_pro_cod ) \n" +
@@ -75,10 +77,6 @@ public class Consultas {
                 "WHERE PR.prof_especializacion = '" + getEspecializacion + "'";
         return profecionales;
     }
-    public String insertenTabla(String tabla, StringBuilder getatributos){
-        String consuInsert = "INSERT INTO " +tabla+ " VALUES " + getatributos;
-        return consuInsert;
-    }
 
     public String ActualizarTablaPro(String descripcion, String alcance, int presupuesto, int codpro){
         String actualizar = "UPDATE proyectos \n"+
@@ -96,10 +94,27 @@ public class Consultas {
     public String rangoFechaProyecto(String fechainicial, String fechafinal){
         String fechaProyecto = "SELECT P.* \n"+
                 "FROM proyectos P INNER JOIN objetivo O \n" +
-                "ON (P.pro_cod = O.fk_pro_cod AND ( obj_fechainicio >= '" + fechainicial + "'\n" +
-                "AND  obj_fechafinal <= '" + fechafinal + "'))";
+                "ON (P.pro_cod = O.fk_pro_cod AND ( obj_fechainicio BETWEEN '" + fechainicial + "'\n" +
+                "AND  '" + fechafinal + "'))";
         return fechaProyecto;
     }
+    public String insertenTabla(String nametabla, String[] rowData) {
+        StringBuilder consultaInsert = new StringBuilder(); // cadena string mutable
+        consultaInsert.append("INSERT INTO ").append(nametabla).append(" VALUES (");
+
+        // recorro los valores de la lista rowdata
+        for (int i = 0; i < rowData.length; i++) {
+            // agrego los datos a consultinsert dentro de commilas simples VALUES ('','','',...)
+            consultaInsert.append("'").append(rowData[i]).append("'");
+            // condicional para agregar comas entra cada valor menss el ultimo valor
+            if (i < rowData.length - 1) {
+                consultaInsert.append(", ");
+            }
+        }
+        consultaInsert.append(")"); // cierra de values
+        return consultaInsert.toString();
+    }
+
 
 
 

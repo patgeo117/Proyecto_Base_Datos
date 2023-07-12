@@ -18,13 +18,10 @@ public class MetodosConsultas {
         try {
             // Establecer la conexión con la base de datos
             connection = DriverManager.getConnection(url, user, password);
-
             // Crear una sentencia para ejecutar la consulta
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-
             // Ejecutar la consulta y obtener el conjunto de resultados
             resultSet = statement.executeQuery(consulta);
-
             // Obtener el número de columnas en los resultados
             metaData = resultSet.getMetaData();
             int columnCount = metaData.getColumnCount();
@@ -80,15 +77,13 @@ public class MetodosConsultas {
 
     public ArrayList<String> getColmnas(String consulta) {
         ArrayList<String> columnas = new ArrayList<>();
-        // Establecer la conexión con la base de datos
         try {
+            // Establecer la conexión con la base de datos
             connection = DriverManager.getConnection(url, user, password);
             // Crear una sentencia para ejecutar la consulta
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-
             // Ejecutar la consulta y obtener el conjunto de resultados
             resultSet = statement.executeQuery(consulta);
-
             // Obtener el número de columnas en los resultados
             metaData = resultSet.getMetaData();
             int columnCount = metaData.getColumnCount();
@@ -97,10 +92,28 @@ public class MetodosConsultas {
             for (int i = 1; i <= columnCount; i++) {
                 columnas.add(metaData.getColumnName(i));
             }
+
+            statement.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         return columnas;
+    }
+
+    // métodos para consultas sin retorno de datos
+    // Esctrura para la tabla
+    public void ejercutarModifiData(String consulta) {
+        try {
+            connection = DriverManager.getConnection(url, user, password);
+            // Crear una sentencia para ejecutar la consulta
+            PreparedStatement statement = connection.prepareStatement(consulta);
+            // Ejecutar la consulta
+            statement.executeUpdate();
+
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

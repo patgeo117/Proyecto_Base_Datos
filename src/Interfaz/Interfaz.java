@@ -19,6 +19,7 @@ public class Interfaz extends JFrame implements ActionListener {
     JButton guardarFila;
     // ComboBox
     JComboBox<String> consultar;
+    DefaultComboBoxModel<String> modelComboBox = new DefaultComboBoxModel<String>();
 
     // Panel
     JPanel panel;
@@ -42,7 +43,7 @@ public class Interfaz extends JFrame implements ActionListener {
 
     // Crear un modelo de la tabla
     JTable table = new JTable(); // Tabla
-    JTableHeader encabezadoTable = new JTableHeader(); // para asignarle un nombre a las tablas cabecera del jtable
+    JTableHeader encabezadoTable = table.getTableHeader(); // para asignarle un nombre a las tablas cabecera del jtable
     DefaultTableModel model = (DefaultTableModel) table.getModel();
 
     // Llamo a la clase que tiene los metodos
@@ -58,26 +59,26 @@ public class Interfaz extends JFrame implements ActionListener {
 
         // Botones
         Actualizar = new JButton("Actualizar");
-        Actualizar.setBounds(410, 60, 100, 40);
+        Actualizar.setBounds(550, 60, 100, 40);
         Actualizar.setBackground(Color.green);
         Actualizar.setVisible(false);
         Actualizar.addActionListener(this);
         add(Actualizar);
 
         obtenerConsulta = new JButton("Obtener consulta");
-        obtenerConsulta.setBounds(245, 60, 150, 40);
+        obtenerConsulta.setBounds(380, 60, 150, 40);
         obtenerConsulta.setBackground(Color.RED);
         obtenerConsulta.addActionListener(this);
         add(obtenerConsulta);
 
         agregarFila = new JButton("Agragar fila");
-        agregarFila.setBounds(60, 490, 150, 40);
+        agregarFila.setBounds(60, 490, 110, 40);
         agregarFila.setBackground(Color.RED);
         agregarFila.addActionListener(this);
         add(agregarFila);
 
         guardarFila = new JButton("Guardar Fila");
-        guardarFila.setBounds(200, 490,150,40);
+        guardarFila.setBounds(180, 490,110,40);
         guardarFila.setBackground(Color.RED);
         guardarFila.addActionListener(this);
         add(guardarFila);
@@ -142,12 +143,14 @@ public class Interfaz extends JFrame implements ActionListener {
         this.setJMenuBar(menuBar);
 
         // Jcombox
-        String[] labelComboBox = {"Seleccionar", "Proyectos de la comunidad", "Representante", "Responsable proyectos", "Evaluación Proyecto," ,
-                "Objetivos y Evaluación", "Niños Comunidad", "Profecional Proyecto", "Profecional Especialización", "Proyecto Fecha"};
+        String[] labelComboBox = {"Seleccionar", "Proyectos de la comunidad   (comunidades)", "Representante   (proyectos)",
+                "Responsable proyectos   (administrativos)", "Evaluación Proyecto   (evaluación)" ,
+                "Objetivos y Evaluación    (proyectos)", "Niños Comunidad   (comunidades)",
+                "Profecional Proyecto   (proyectos)", "Profecional Especialización   (profesionales)", "Proyecto Fecha   (proyectos)"};
         consultar = new JComboBox<>(labelComboBox);
         consultar.setEditable(false);
         consultar.setSelectedIndex(0); // seleccionar item de manera predeterminada
-        consultar.setBounds(40, 60, 200, 40);
+        consultar.setBounds(40, 60, 300, 40);
         add(consultar);
 
         // Configuración Ventana
@@ -171,13 +174,18 @@ public class Interfaz extends JFrame implements ActionListener {
     }
 
     // Se crea un método que va a recibir una consulta y agrega los datos al modelo de la tabla
-    public void agragarDataModel(String data) {
-        for (String columna : Metodoconsultas.getColmnas(data)) { // recorro los datos obtenidos en la consulta
+    public void agragarDataModel(String sentencia) {
+        for (String columna : Metodoconsultas.getColmnas(sentencia)) { // recorro los datos obtenidos en la consulta
             model.addColumn(columna); // agregos los datos al model
         }
-        for (Object[] fila : Metodoconsultas.ejecutarConsulta(data)) {
+        for (Object[] fila : Metodoconsultas.ejecutarConsulta(sentencia)) {
             model.addRow(fila);
         }
+    }
+
+    // métodos para consultas sin retorno de datos (solo consultas de insert o update)
+    public void ejecutarInsertUpdate(String sentencia){
+        Metodoconsultas.ejercutarModifiData(sentencia);
     }
 
     public void ObtenerSeleccion() {
@@ -189,9 +197,7 @@ public class Interfaz extends JFrame implements ActionListener {
         }
             
         if (item == 1) {
-            if(Objects.equals(table.getName(), "comunidades")) {
-                System.out.println(table.getName());
-                consultar.setSelectedIndex(1);
+            if(Objects.equals(encabezadoTable.getName(), "comunidades")) {
                 int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
                 int cod = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
                 setTable(); // limpio los datos de la tabla
@@ -199,7 +205,7 @@ public class Interfaz extends JFrame implements ActionListener {
                 agragarDataModel(consultas.proyectoDeComunidades(cod));
             }
         }else if(item == 2) {
-            if(Objects.equals(table.getName(), "proyectos")) {
+            if(Objects.equals(encabezadoTable.getName(), "proyectos")) {
                 int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
                 int cod = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
                 setTable(); // limpio los datos de la tabla
@@ -207,7 +213,7 @@ public class Interfaz extends JFrame implements ActionListener {
                 agragarDataModel(consultas.responsableProyecto0(cod));
             }
         }else if(item == 3){
-            if(Objects.equals(table.getName(), "administrativos")) {
+            if(Objects.equals(encabezadoTable.getName(), "administrativos")) {
                 int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
                 int cod = (int) model.getValueAt(indexRow, 2); // obtengo el valor de la celda deseada
                 setTable(); // limpio los datos de la tabla
@@ -215,14 +221,14 @@ public class Interfaz extends JFrame implements ActionListener {
                 agragarDataModel(consultas.respoProyectosDirectivos(cod));
             }
         } else if (item == 4) {
-            if(Objects.equals(table.getName(),"evaluacion")) {
+            if(Objects.equals(encabezadoTable.getName(),"evaluacion")) {
                 int eva = Integer.parseInt(JOptionPane.showInputDialog("Digite el porcentaje que desea evaluar (80)"));
                 setTable(); // limpio los datos de la tabla
                 agragarDataModel(consultas.evaluacionProyecto(eva));
             }
 
         } else if (item == 5) {
-            if(Objects.equals(table.getName(), "proyectos")) {
+            if(Objects.equals(encabezadoTable.getName(), "proyectos")) {
                 int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
                 int cod = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
                 setTable(); // limpio los datos de la tabla
@@ -230,7 +236,7 @@ public class Interfaz extends JFrame implements ActionListener {
                 agragarDataModel(consultas.ObjetivoEvaluacionProyecto(cod));
             }
         }else if (item == 6) {
-            if (Objects.equals(table.getName(), "comunidades")) {
+            if (Objects.equals(encabezadoTable.getName(), "comunidades")) {
                 int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
                 int cod = (int) model.getValueAt(indexRow, 0); // obtengo el valor de la celda deseada
                 setTable(); // limpio los datos de la tabla
@@ -238,7 +244,7 @@ public class Interfaz extends JFrame implements ActionListener {
                 agragarDataModel(consultas.niñoComunidad(cod));
             }
         }else if (item == 7) {
-            if (Objects.equals(table.getName(), "proyectos")) {
+            if (Objects.equals(encabezadoTable.getName(), "proyectos")) {
                 int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
                 int cod = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
                 setTable(); // limpio los datos de la tabla
@@ -246,7 +252,7 @@ public class Interfaz extends JFrame implements ActionListener {
                 agragarDataModel(consultas.profecionalProyecto(cod));
             }
         }else if (item == 8) {
-            if (Objects.equals(table.getName(), "profecionales")) {
+            if (Objects.equals(encabezadoTable.getName(), "profecionales")) {
                 int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
                 String especializacion = (String) model.getValueAt(indexRow, 0); // obtengo el valor de la celda deseada
                 setTable(); // limpio los datos de la tabla
@@ -254,7 +260,7 @@ public class Interfaz extends JFrame implements ActionListener {
                 agragarDataModel(consultas.profecionalEspecializacion(especializacion));
             }
         }else if (item == 9) {
-            if (Objects.equals(table.getName(), "proyectos")) {
+            if (Objects.equals(encabezadoTable.getName(), "proyectos")) {
                 String fechainicio = JOptionPane.showInputDialog("Digite la fecha inicial (2023-06-02)");
                 String fechafinal = JOptionPane.showInputDialog("Digite la fecha Final (2023-10-31)");
                 setTable(); // limpio los datos de la tabla
@@ -265,38 +271,38 @@ public class Interfaz extends JFrame implements ActionListener {
     }
 
     public void ActualizarTablas (){
-        if(Objects.equals(table.getName(), "proyectos")) {
+        if(Objects.equals(encabezadoTable.getName(), "proyectos")) {
             int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
             String descripcion = (String) model.getValueAt(indexRow, 1); // obtengo el valor de la celda deseada
             String alcance = (String) model.getValueAt(indexRow, 2); // obtengo el valor de la celda deseada
-            int presupuesto = (int) model.getValueAt(indexRow, 3); // obtengo el valor de la celda deseada
+            int presupuesto = Integer.parseInt((String)  model.getValueAt(indexRow, 3)); // obtengo el valor de la celda deseada
             int cod_pro = (int) model.getValueAt(indexRow, 5); // obtengo el valor de la celda deseada
 
-            agragarDataModel(consultas.ActualizarTablaPro(descripcion,alcance,presupuesto,cod_pro));
-
+            ejecutarInsertUpdate(consultas.ActualizarTablaPro(descripcion,alcance,presupuesto,cod_pro));
         }
-        if(Objects.equals(table.getName(), "empleados")){
+        if(Objects.equals(encabezadoTable.getName(), "empleados")){
             int indexRow = table.getSelectedRow(); // Obtengo la fila seleccionada
 
             int salario = Integer.parseInt((String) model.getValueAt(indexRow, 1)); // obtengo el valor de la celda deseada
             int cod_emp = (int) model.getValueAt(indexRow, 2); // obtengo el valor de la celda deseada
 
-            agragarDataModel(consultas.ActualizarTablaEmp(salario,cod_emp));
+            ejecutarInsertUpdate(consultas.ActualizarTablaEmp(salario,cod_emp));
         }
     }
 
-    public void insertardatosPosgrest(){
-        int lastFila = table.getSelectedRow(); // obtengo la última fila de la tabla
-        String tableName = encabezadoTable.getName();
-
-        StringBuilder rowData = new StringBuilder(); // guardar los dataos
+    public void insertardatosPosgrest() {
+        int lastFila = table.getSelectedRow();
+        String tableName = encabezadoTable.getName(); // obtengo el nombre de la tabla
+        String[] rowData = new String[table.getColumnCount()]; // almaceno lso datos
+        // recorro cada celda
         for (int i = 0; i < table.getColumnCount(); i++) {
-            rowData.append((String) table.getValueAt(lastFila, i));
+            // obtengo lso valores
+            rowData[i] = String.valueOf(table.getValueAt(lastFila, i));
         }
-        System.out.println(rowData);
-
-        consultas.insertenTabla(tableName, rowData);
+        ejecutarInsertUpdate(consultas.insertenTabla(tableName, rowData));
+        System.out.println(consultas.insertenTabla(tableName, rowData));
     }
+
 
     ActionListener Action2 = new ActionListener() {
         @Override
@@ -307,65 +313,65 @@ public class Interfaz extends JFrame implements ActionListener {
             Actualizar.setVisible(false);
             if (jm == I_proyectos) {
                 setTable();
-                Actualizar.setVisible(true);
+                Actualizar.setVisible(true); // Habilitar vista del Botón
                 agragarDataModel(consultas.C_proyectos);
-                table.setName("proyectos");
+                encabezadoTable.setName("proyectos");
             }
             if (jm == I_comunidades) {
                 setTable();
                 agragarDataModel(consultas.C_comunidades);
-                table.setName("comunidades");
+                encabezadoTable.setName("comunidades");
             }
             if (jm == I_Empleados) {
                 setTable();
                 Actualizar.setVisible(true);
                 agragarDataModel(consultas.C_empleados);
-                table.setName("empleados");
+                encabezadoTable.setName("empleados");
             }
             if (jm == I_administrativos) {
                 setTable();
                 agragarDataModel(consultas.C_administrativos);
-                table.setName("administrativos");
+                encabezadoTable.setName("administrativos");
             }
             if (jm == I_profecionales) {
                 setTable();
                 agragarDataModel(consultas.C_profecionales);
-                table.setName("profecionales");
+                encabezadoTable.setName("profecionales");
             }
             if (jm == I_Representate) {
                 setTable();
                 agragarDataModel(consultas.C_representante);
-                table.setName("representante");
+                encabezadoTable.setName("representante");
             }
             if (jm == I_D_contacto_Representante) {
                 setTable();
                 agragarDataModel(consultas.C_Drepresentante);
-                table.setName("dcontacto_representante");
+                encabezadoTable.setName("dcontacto_representante");
             }
             if (jm == I_objetivos) {
                 setTable();
                 agragarDataModel(consultas.C_objetivos);
-                table.setName("objetivo");
+                encabezadoTable.setName("objetivo");
             }
             if (jm == I_Tema) {
                 setTable();
                 agragarDataModel(consultas.C_tema);
-                table.setName("tema");
+                encabezadoTable.setName("tema");
             }
             if (jm == I_Evaluacion) {
                 setTable();
                 agragarDataModel(consultas.C_evaluacion);
-                table.setName("evaluacion");
+                encabezadoTable.setName("evaluacion");
             }
             if (jm == I_niños) {
                 setTable();
                 agragarDataModel(consultas.C_niños);
-                table.setName("niños");
+                encabezadoTable.setName("niños");
             }
             if (jm == I_participacion) {
                 setTable();
                 agragarDataModel(consultas.C_participacion);
-                table.setName("participacion");
+                encabezadoTable.setName("participacion");
             }
         }
     };
